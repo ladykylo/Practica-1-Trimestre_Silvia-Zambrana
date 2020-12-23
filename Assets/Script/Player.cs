@@ -11,7 +11,7 @@ public class Player : MonoBehaviour
     public float speed = 5f;
     public float jumpPower = 50f;
 
-    [Range(3, 8)]
+
  
     public Text scoreText;
     public Text highScoreText;
@@ -27,6 +27,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         myRigidBody2D = GetComponent<Rigidbody2D>();
+
 
         highScore = PlayerPrefs.GetInt("highScore");
         highScoreText.text = "Highscore: " + highScore + "";
@@ -73,8 +74,19 @@ public class Player : MonoBehaviour
             myRigidBody2D.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
             jump = false;
         }
-
     }
+
+         private void OnTriggerEnter2D(Collider2D other)
+        {
+            if (other.gameObject.CompareTag("Pickup"))
+            {
+                
+                other.gameObject.SetActive(false);
+            score ++;
+                scoreText.text = "Score = " + score;
+            }
+
+        }
 
     
 
