@@ -35,6 +35,10 @@ public class Player : MonoBehaviour
     void Update()
     {
 
+        if (PlayerPrefs.GetInt("highScore") < score)
+        {
+            PlayerPrefs.SetInt("highScore", score);                 // Para guardar los puntos maximos.
+        }
 
         if (Input.GetKey(KeyCode.RightArrow))                           //Moverse derecha
         {
@@ -46,10 +50,6 @@ public class Player : MonoBehaviour
             transform.position += Vector3.left * speed * Time.deltaTime;
         }
 
-        if (PlayerPrefs.GetInt("highScore") < score)
-        {
-            PlayerPrefs.SetInt("highScore", score);                 // Para guardar los puntos maximos.
-        }
 
         horizontal = Input.GetAxis("Horizontal");                   //Para rotar cuando cambie de dirreción
 
@@ -78,11 +78,7 @@ public class Player : MonoBehaviour
 
     
 
-    private void OnTriggerEnter2D(Collider2D other)        // Suma de los puntos.
-    {
-        score++;
-        scoreText.text = "Score: " + score.ToString();
-    }
+    
 
 }
 
